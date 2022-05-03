@@ -1,0 +1,32 @@
+[
+  {
+    "id": 1,
+    "name": "Hariram",
+    "username": "hariramk",
+    "email": "hariramk01@outlook.com"
+  },
+  {
+    "id": 2,
+    "name": "Manutha",
+    "username": "manuthar",
+    "email": "manutha@outlook.com"
+  },
+  {
+    "id": 3,
+    "name": "Vimal",
+    "username": "Vimalt",
+    "email": "Vimal@outlook.com"
+  },
+  {
+    "id": 4,
+    "name": "Kathir",
+    "username": "Kathirv",
+    "email": "Kathir@outlook.com"
+  },
+  {
+    "id": 5,
+    "name": "Suba",
+    "username": "subsas",
+    "email": "suba02@outlook.com"
+  }
+]
