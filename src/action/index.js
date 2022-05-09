@@ -4,3 +4,8 @@ export const getUsers = (users) => {
     payload: users,
   };
 };
+
+export const updateUser = (user) => ({
+  type: "UPDATE_USER",
+  payload: user,
+});

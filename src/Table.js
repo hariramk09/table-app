@@ -1,7 +1,33 @@
-import React, { useState } from "react";
+import React from "react";
+import TableCell from "./TableCell";
+import { getUsers, updateUser } from "./action";
 import { connect } from "react-redux";
 
 const Table = (props) => {
+  const onEditClick = (user) => {
+    user.isEditable = true;
+    props.updateUser(user);
+  };
+  const onCancelClick = (user) => {
+    user.isEditable = false;
+    props.updateUser(user);
+  };
+  const onDoneClick = (userEmail, user) => {
+    user.email = userEmail;
+    user.isEditable = false;
+    props.updateUser(user);
+  };
+  const onEmailKeyDown = (e, user) => {
+    if (e.keyCode == 13) {
+      user.email = e.target.value;
+      user.isEditable = false;
+      props.updateUser(user);
+    }
+  };
+  const onDeleteClick = (user) => {
+    let filteredUsers = props.users.filter((ele) => ele.id != user.id);
+    props.getUsers(filteredUsers);
+  };
   return (
     <table>
       <thead>
@@ -11,34 +37,20 @@ const Table = (props) => {
           <td>User Name</td>
           <td>Email</td>
           <td>Delete</td>
-          <td>Edit</td>
+          <td>Action</td>
         </tr>
       </thead>
       <tbody>
-        {props.users.map((user) => {
-          return (
-            <tr key={user.id}>
-              <td>{user.id}</td>
-              <td>{user.name}</td>
-              <td>{user.username}</td>
-              <td>{!user.isEdtiable ? user.email : <input type="text" />}</td>
-              <td>
-                <button onClick={() => props.onDeleteClick(user)}>
-                  Delete
-                </button>
-              </td>
-              <td>
-                <button
-                  onClick={() => {
-                    props.onEditClick(user);
-                  }}
-                >
-                  Edit
-                </button>
-              </td>
-            </tr>
-          );
-        })}
+        {props.users.map((user) => (
+          <TableCell
+            user={user}
+            onEditClick={onEditClick}
+            onCancelClick={onCancelClick}
+            onDoneClick={onDoneClick}
+            onEmailKeyDown={onEmailKeyDown}
+            onDeleteClick={onDeleteClick}
+          />
+        ))}
       </tbody>
     </table>
   );
@@ -47,4 +59,4 @@ const Table = (props) => {
 const mapStateToProps = (state) => {
   return { users: state.users };
 };
-export default connect(mapStateToProps)(Table);
+export default connect(mapStateToProps, { getUsers, updateUser })(Table);
